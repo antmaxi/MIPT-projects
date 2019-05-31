@@ -1,0 +1,907 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Maksimov\_task1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{ux441ux442ux430ux442ux438ux441ux442ux438ux447ux435ux441ux43aux438ux435-ux43cux435ux442ux43eux434ux44b-ux432-ux431ux438ux43eux438ux43dux444ux43eux440ux43cux430ux442ux438ux43aux435}{%
+\section{Статистические методы в
+биоинформатике}\label{ux441ux442ux430ux442ux438ux441ux442ux438ux447ux435ux441ux43aux438ux435-ux43cux435ux442ux43eux434ux44b-ux432-ux431ux438ux43eux438ux43dux444ux43eux440ux43cux430ux442ux438ux43aux435}}
+
+\hypertarget{ux434ux43eux43cux430ux448ux43dux435ux435-ux437ux430ux434ux430ux43dux438ux435-1}{%
+\subsection{Домашнее задание
+1}\label{ux434ux43eux43cux430ux448ux43dux435ux435-ux437ux430ux434ux430ux43dux438ux435-1}}
+
+\textbf{Правила:}
+
+\begin{itemize}
+\tightlist
+\item
+  Дедлайн \textbf{17 марта 23:59}.
+\item
+  Выполненную работу нужно отправить на почту
+  \texttt{mipt.stats@yandex.ru}, указав тему письма
+  \texttt{"{[}smb{]}\ Фамилия\ Имя\ -\ задание\ 1"}. Квадратные скобки
+  обязательны. Если письмо дошло, придет ответ от автоответчика.
+\item
+  Прислать нужно ноутбук и его pdf-версию (без архивов).
+\item
+  Для выполнения задания используйте этот ноутбук в качествие основы,
+  ничего не удаляя из него.
+\item
+  Никакой код из данного задания при проверке запускаться не будет.
+\end{itemize}
+
+    \hypertarget{ux442ux435ux43eux440ux435ux442ux438ux447ux435ux441ux43aux430ux44f-ux447ux430ux441ux442ux44c-15-ux431ux430ux43bux43bux43eux432}{%
+\subsubsection{Теоретическая часть (15
+баллов)}\label{ux442ux435ux43eux440ux435ux442ux438ux447ux435ux441ux43aux430ux44f-ux447ux430ux441ux442ux44c-15-ux431ux430ux43bux43bux43eux432}}
+
+Каждая задача стоит \textbf{5 баллов}.
+
+\textbf{Задача 1.} Дана выборка \(X_1, ..., X_n\) из нормального
+распределения \(\mathcal{N}(a, \sigma^2)\). Найдите оценку максимального
+правдоподобия параметра \(\theta = (a, \sigma)\).
+
+\textbf{Задача 2.} Дана выборка \(X_1, ..., X_n\) из категориального
+распределения, то есть распределение на множестве \(\{a_1, ..., a_k\}\),
+причем \(\mathsf{P}(X_i = a_j) = p_j\). Найдите оценку максимального
+правдоподобия параметра \(\theta = (p_1, ..., p_k)\).
+
+\textbf{Задача 3.} Дана выборка \(X_1, ..., X_n\) из пуассоновского
+распределения \(Pois(\theta)\), то есть
+\(\mathsf{P}(X_i = k) = \frac{\theta^k}{k!}e^{-\lambda}\). Найдите
+оценку максимального правдоподобия параметра \(\theta\).
+
+    \hypertarget{ux437ux430ux434ux430ux447ux430-1}{%
+\subsection{Задача 1}\label{ux437ux430ux434ux430ux447ux430-1}}
+
+    \(X = (X_1, \ldots, X_n)\)
+
+\(p_i(X, \theta) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x_i-a)^2}{2\sigma^2}}\)
+
+\(L(X, \theta) = \prod\limits_{i=1}^n p_i(\theta) = \prod\limits_{i=1}^n \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x_i-a)^2}{2\sigma^2}}\)
+
+\(\ln L(X, \theta) = Const - n\ln\sigma - \sum\limits_{i=1}^n \frac{(x_i - a)^2}{2\sigma^2}\)
+- непр. диф. по \(a\), \(\sigma > 0\)
+
+    \(\frac{\partial\ln L(X, \theta)}{\partial a} = \sum\limits_{i=1}^n\frac{2(x_i-a)}{2\sigma^2} = \frac{-na + \sum\limits_{i=1}^n x_i}{\sigma^2} = 0 \Rightarrow a = \overline{x}\)
+
+\(\frac{\partial\ln L(X, \theta)}{\partial \sigma} = -\frac{n}{\sigma} + \frac{\sum\limits_{i=1}^n (x_i - a)^2}{\sigma^3} = 0 \Rightarrow \sigma^2 = \frac{\sum\limits_{i=1}^n (x_i - a)^2}{n} = \overline{(x-a)^2} = \overline{(x-\overline{x})^2} = \overline{x^2-2x\overline{x}+\overline{x}^2} = \overline{x^2} - \overline{x}^2\),
+т. к. \(\overline{x\overline{x}} = \overline{x}^2\)
+
+Проверим полож. определенность гессиана:
+
+\(\frac{\partial^2\ln L(X, \theta)}{\partial a^2} = -\frac{n}{\sigma^2} < 0\)
+
+\(\frac{\partial^2\ln L(X, \theta)}{\partial a \partial\sigma} = 0\) при
+выбранной \(a\)
+
+\(\frac{\partial^2\ln L(X, \theta)}{\partial \sigma^2} = -2n\sigma^2 < 0\)
+
+То есть \(\hat{a} = \overline{x}\),
+\(\hat{\sigma} = \sqrt{\overline{(x-\overline{x})^2}} = \sqrt{\overline{x^2} - \overline{x}^2}\)
+- действительно оценки максимального правдоподобия
+
+    \hypertarget{ux437ux430ux434ux430ux447ux430-2}{%
+\subsection{Задача 2}\label{ux437ux430ux434ux430ux447ux430-2}}
+
+    \(\sum\limits_{j=1}^k p_j = 1\)
+
+\$L(X, \theta) = \prod\limits\emph{\{i=1\}\^{}n
+\prod\limits}\{j=1\}\^{}k p\_j\^{}\{I\{x\_i = a\_j\}\} \$
+
+\(\ln L(X, \theta) = \sum\limits_{i=1}^n \sum\limits_{j=1}^k I\{x_i = a_j\}\ln p_j = \sum\limits_{j=1}^k \#\{x_i|x_i = a_j\}\ln p_j \rightarrow \max\limits_{p_j: \sum\limits_{j=1}^k p_j = 1}, \sum\limits_{j=1}^k \#\{x_i|x_i = a_j\} = n\)
+
+    Заменим \(p_k\) на \(1 - \sum\limits_{j=1}^{k-1} p_j\)
+
+Для
+\(j=\overline{1,\ldots,k-1} \Rightarrow \frac{\partial\ln L(X, \theta)}{\partial p_j} = \frac{\#\{x_i| x_i = a_j\}}{p_j} - \frac{\#\{x_i| x_i = a_k\}}{1 - \sum\limits_{j=1}^{k-1} p_j} = \frac{\#\{x_i| x_i = a_j\}}{p_j} - \frac{\#\{x_i| x_i = a_k\}}{p_k}\)
+
+Чтобы добиться равенства всех этих производных нулю, нужно взять
+\(\hat{p_j} = \frac{\#\{x_i| x_i = a_j\}}{n}\) (других решений нет, т.к.
+соотношения вероятностей и их общая сумма фиксированы)
+
+Гессиан будет диагонален, на диагонали будут стоять
+\(-\frac{\#\{x_i|x_i = a_j\}}{p_j^2} = -\frac{1}{p_j}\), так что это
+действительно максимум функции правдоподобия
+
+    \hypertarget{ux437ux430ux434ux430ux447ux430-3}{%
+\subsection{Задача 3}\label{ux437ux430ux434ux430ux447ux430-3}}
+
+    \(L(X, \theta) = \prod\limits_{i=1}^n \frac{\theta^{x_i} e^{-\theta}}{x_k!} = \frac{e^{-n\theta}\theta^{\Sigma x_j}}{x_1!\ldots x_n!}\)
+
+\(\ln L(X, \theta) = \sum\limits_{i=1}^n x_i \ln\theta - n\theta - \sum\limits_{i=1}^n \ln x_i!\)
+- непр. диф по \(\theta\) при \(\theta > 0\)
+
+\(\frac{\partial\ln L(X, \theta)}{\partial\theta} = \frac{\sum\limits_{i=1}^n x_i}{\theta} - n = 0 \Rightarrow \hat{\theta} = \frac{\sum\limits_{i=1}^n x_i}{n} = \overline{x} \ge 0\)
+
+\(\frac{\partial^2\ln L(X, \theta)}{\partial\theta^2} = -\frac{n^2}{\sum\limits_{i=1}^n x_i }< 0\)
+(т.к. \(x_i \ge 0\))
+
+(вырожденный случай, если все \(x_i\) равны 0, но тогда
+\(\ln L(X, \theta) = - n\theta\) и получается тот же ответ,
+максимальность \(\theta\) в нуле очевидна)
+
+    \hypertarget{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux447ux430ux441ux442ux44c-30-ux431ux430ux43bux43bux43eux432}{%
+\subsubsection{Практическая часть (30
+баллов)}\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux447ux430ux441ux442ux44c-30-ux431ux430ux43bux43bux43eux432}}
+
+Сначала импортируем некоторые библиотеки. Если некоторые из них не
+установлены, установите их командой
+
+\texttt{pip\ install\ имя\_библиотеки}
+
+Библиотека \texttt{Bio} устанавливается с помощью
+
+\texttt{pip\ install\ biopython}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{Bio} \PY{k+kn}{import} \PY{n}{SeqIO}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    Загрузите выданные данные с помощью приведенного ниже кода. Вы будете
+работать с двумя датасетами. Один из них содержит данные об экспрессии
+генов с сайта gtexportal.org, Genotype-Tissue Expression -- публичного
+атласа экспресси генов, содержащим экспрессию генов более чем 50 тканей
+от 1000 пациентов, а так же их генотип. Другой датасет содержит данные о
+последовательности энхансеров позвоночных. Тема изучения и предсказания
+энхансеров, а так же их таргета -- важный аспект современной
+биоинформатики.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{gene\PYZus{}counts} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GTEx\PYZus{}gene\PYZus{}reads.trunc.gct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                 \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{records} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{SeqIO}\PY{o}{.}\PY{n}{parse}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Liver.fasta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fasta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{samples\PYZus{}annotation} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samples\PYZus{}annotation.tsv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                        \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Посмотрим на начало таблиц:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{gene\PYZus{}counts}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}                                           0                  1  \textbackslash{}
+        Name                      ENSG00000237613.2  ENSG00000183114.6   
+        Description                         FAM138A             FAM43B   
+        GTEX-1117F-0226-SM-5GZZ7                  1                 27   
+        GTEX-111CU-1826-SM-5GZYN                  0                 43   
+        GTEX-111FC-0226-SM-5N9B8                  1                 93   
+        
+                                                   2                  3  \textbackslash{}
+        Name                      ENSG00000060718.14  ENSG00000184599.9   
+        Description                          COL11A1            FAM19A3   
+        GTEX-1117F-0226-SM-5GZZ7                 652                  0   
+        GTEX-111CU-1826-SM-5GZYN                  52                  2   
+        GTEX-111FC-0226-SM-5N9B8                 140                  4   
+        
+                                                   4                   5  
+        Name                      ENSG00000135842.12  ENSG00000114270.11  
+        Description                          FAM129A              COL7A1  
+        GTEX-1117F-0226-SM-5GZZ7                5663                 857  
+        GTEX-111CU-1826-SM-5GZYN                1869                 280  
+        GTEX-111FC-0226-SM-5N9B8               12268                1284  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{samples\PYZus{}annotation}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                      SAMPID  SMATSSCR SMCENTER  \textbackslash{}
+        0  GTEX-1117F-0226-SM-5GZZ7       0.0       B1   
+        1  GTEX-1117F-0426-SM-5EGHI       0.0       B1   
+        2  GTEX-1117F-0526-SM-5EGHJ       0.0       B1   
+        3  GTEX-1117F-0626-SM-5N9CS       1.0       B1   
+        4  GTEX-1117F-0726-SM-5GIEN       1.0       B1   
+        
+                                                    SMPTHNTS  SMRIN            SMTS  \textbackslash{}
+        0       2 pieces, \textasciitilde{}15\% vessel stroma, rep delineated    6.8  Adipose Tissue   
+        1  2 pieces, !5\% fibrous connective tissue, delin{\ldots}    7.1          Muscle   
+        2  2 pieces, clean, Monckebeg medial sclerosis, r{\ldots}    8.0    Blood Vessel   
+        3  2 pieces, up to 4mm aderent fat/nerve/vessel, {\ldots}    6.9    Blood Vessel   
+        4                         2 pieces, no abnormalities    6.3           Heart   
+        
+                              SMTSD  SMUBRID  SMTSISCH  SMTSPAX  {\ldots}    SME1ANTI  \textbackslash{}
+        0    Adipose - Subcutaneous  0002190    1214.0   1125.0  {\ldots}  14579275.0   
+        1         Muscle - Skeletal  0011907    1220.0   1119.0  {\ldots}  13134349.0   
+        2           Artery - Tibial  0007610    1221.0   1120.0  {\ldots}  13169835.0   
+        3         Artery - Coronary  0001621    1243.0   1098.0  {\ldots}  15148343.0   
+        4  Heart - Atrial Appendage  0006631    1244.0   1097.0  {\ldots}  13583226.0   
+        
+             SMSPLTRD  SMBSMMRT    SME1SNSE   SME1PCTS  SMRRNART  SME1MPRT  SMNUM5CD  \textbackslash{}
+        0  12025354.0  0.003164  14634407.0  50.094357  0.003102  0.992826       NaN   
+        1  11578874.0  0.003991  13307871.0  50.328114  0.006991  0.994212       NaN   
+        2  11015113.0  0.004285  13160068.0  49.981450  0.002867  0.992711       NaN   
+        3  11624467.0  0.003379  15282444.0  50.220333  0.005335  0.991175       NaN   
+        4   9262806.0  0.003451  13745609.0  50.297090  0.030579  0.994478       NaN   
+        
+           SMDPMPRT   SME2PCTS  
+        0       0.0  50.126280  
+        1       0.0  49.905170  
+        2       0.0  50.227848  
+        3       0.0  50.025043  
+        4       0.0  49.929870  
+        
+        [5 rows x 63 columns]
+\end{Verbatim}
+            
+    \textbf{0.} С помощью функции \texttt{plt.hist} постройте общую
+гистограмму экспрессии для гена FAM129A из таблицы \texttt{gene\_counts}
+для всех \texttt{SAMPID}, представленных в \texttt{samples\_annotation}.
+Для этого выберите нужные строчки (в данном случаем можно по индексу
+образцов \texttt{SAMPID}) и столбец, где \texttt{Description==FAM129A}.
+
+На какое распределение похожа гистограмма?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{a} \PY{o}{=} \PY{n}{gene\PYZus{}counts}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Description}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FAM129A}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{ind} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{a} \PY{o}{==} \PY{n+nb+bp}{True}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+        \PY{n}{h} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{sampid} \PY{o+ow}{in} \PY{n}{samples\PYZus{}annotation}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SAMPID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+            \PY{n}{h}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gene\PYZus{}counts}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{sampid}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{float}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{results}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Распределение похоже на экспоненциальное,
+\(p(x, \theta) = \theta e^{-\theta x}, \ln L = n\ln\theta-\theta n \overline{x}\)
+
+    \textbf{1.} Скорее всего у вас получилось некоторое распределение,
+параметризованное параметром \(\theta\). Найдите оценку максимального
+правдоподобия этого параметра, построив график логарифмической функции
+правдоподобия и взяв по нему точку максимума. Чему она равна? Решите
+данную задачу теоретически и сравните ответ.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{results}\PY{p}{)}
+         \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{results}\PY{p}{)}
+         \PY{n}{start} \PY{o}{=} \PY{l+m+mf}{1.0e\PYZhy{}8}
+         \PY{n}{end} \PY{o}{=} \PY{l+m+mf}{1.0e\PYZhy{}3}
+         \PY{n}{steps} \PY{o}{=} \PY{l+m+mi}{100000}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{p}{,} \PY{n}{steps}\PY{p}{)}
+         \PY{n}{dx} \PY{o}{=} \PY{p}{(}\PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{/}\PY{n}{steps}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{el} \PY{o+ow}{in} \PY{n}{x}\PY{p}{:}
+             \PY{n}{s} \PY{o}{=} \PY{n}{n}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{el}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{el}\PY{o}{*}\PY{n}{n}\PY{o}{*}\PY{n}{x\PYZus{}}    
+             \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ln L}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ +\PYZhy{} }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{dx}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+theta = 9.965999999999999e-05 +- 9.9999e-09
+
+    \end{Verbatim}
+
+    \(L(x, \theta) = \prod\limits_{i=1}^n \theta e^{-\theta x_i}\)
+
+\(\ln L(x, \theta) = n \ln\theta -\theta\sum\limits_{i=1}^n x_i\)
+
+\(\frac{\partial \ln L}{\partial x} = \frac{n}{\theta} - \sum\limits_{i=1}^n x_i\)
+
+\(\hat{\theta} = \frac{1}{\overline{x}}\)
+
+    Найдем эту оценку по выборке
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{results}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} 9.965639943424018e-05
+\end{Verbatim}
+            
+    Видим, что оценки совпадают с большой точностью, что может указывать на
+правильность гипотезы о виде распределения (но не доказывает полностью)
+
+    \textbf{2.1.} Посчитайте, сколько различных тканей представлено в
+колонке \texttt{SMTSD} таблицы \texttt{samples\_annotation}. Сколько
+образцов из артерии большеберцовой кости (\texttt{Artery\ -\ Tibial}) и
+легкого (\texttt{Lung})? При выполнении задания может помочь метод
+\texttt{value\_counts()}, вызванный у столбца таблицы.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Totally tissues }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{samples\PYZus{}annotation}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMTSD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Artery \PYZhy{} Tibial }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{samples\PYZus{}annotation}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMTSD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Artery \PYZhy{} Tibial}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lung }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{samples\PYZus{}annotation}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMTSD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lung}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Totally tissues 53
+Artery - Tibial 441
+Lung 427
+
+    \end{Verbatim}
+
+    \textbf{2.2.} Постройте гистограммы отдельно для артерии и легкого. Что
+можно о них сказать?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{lung} \PY{o}{=} \PY{n}{samples\PYZus{}annotation}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMTSD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lung}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{ind\PYZus{}lung} \PY{o}{=} \PY{n}{lung}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{lung} \PY{o}{==} \PY{n+nb+bp}{True}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data\PYZus{}lung} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{el} \PY{o+ow}{in} \PY{n}{ind\PYZus{}lung}\PY{p}{:}
+             \PY{n}{data\PYZus{}lung}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{samples\PYZus{}annotation}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{el}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{ind}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{data\PYZus{}lung}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}   
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{art} \PY{o}{=} \PY{n}{samples\PYZus{}annotation}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMTSD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Artery \PYZhy{} Tibial}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{ind\PYZus{}art} \PY{o}{=} \PY{n}{lung}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{art} \PY{o}{==} \PY{n+nb+bp}{True}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data\PYZus{}art} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{el} \PY{o+ow}{in} \PY{n}{ind\PYZus{}art}\PY{p}{:}
+             \PY{n}{data\PYZus{}art}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{samples\PYZus{}annotation}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{el}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{ind}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{data\PYZus{}art}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}   
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Распределения по отдельным органам более похожи на нормальные.
+
+Для таких знаем теоретически, что \(\theta = (a, \sigma)\) и
+\(\hat{a} = \overline{x}, \hat{\sigma}^2 = \overline{(x-\overline{x})^2}\)
+
+    \textbf{2.3.} Посчитайте оценку \(\theta\) как в пункте 1 отдельно для
+двух рассматриваемых выше тканей. Что о них можно сказать?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{mean\PYZus{}lung} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{data\PYZus{}lung}\PY{p}{)}
+         \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{el} \PY{o+ow}{in} \PY{n}{data\PYZus{}lung}\PY{p}{:}
+             \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{el} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}lung}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{n}{sigma\PYZus{}lung} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{s}\PY{o}{/}\PY{n}{n}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lung: a = \PYZob{}a\PYZcb{}, sigma = \PYZob{}sigma\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{n}{mean\PYZus{}lung}\PY{p}{,} \PY{n}{sigma}\PY{o}{=}\PY{n}{sigma\PYZus{}lung}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{mean\PYZus{}art} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{data\PYZus{}art}\PY{p}{)}
+         \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{el} \PY{o+ow}{in} \PY{n}{data\PYZus{}art}\PY{p}{:}
+             \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{el} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}art}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{n}{sigma\PYZus{}art} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{s}\PY{o}{/}\PY{n}{n}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Artery: a = \PYZob{}a\PYZcb{}, sigma = \PYZob{}sigma\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{n}{mean\PYZus{}art}\PY{p}{,} \PY{n}{sigma}\PY{o}{=}\PY{n}{sigma\PYZus{}art}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Lung: a = 7.34028103044, sigma = 0.179002857866
+Artery: a = 7.31678004535, sigma = 0.146997042016
+
+    \end{Verbatim}
+
+    Параметры распределений получились очень похожие, что может говорить о
+слабой зависимости характера экспрессии этого гена от органа
+
+    \textbf{2.4.} Зайдите на сайт gtexportal.org и найдите экспрессию гена
+FAM129A. Правда ли она выше в артерии, чем в легких? В какой ткани
+наибольшая экспресиия? Доп. вопрос (биология) -- в чем биологическая
+функция этого гена?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{k+kn}{from} \PY{n+nn}{IPython.display} \PY{k+kn}{import} \PY{n}{Image}
+         \PY{n}{Image}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}81}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    Видно, что в использованной для сайта выборке экспрессия в артерии на
+полпорядка выше, чем в легких, но есть пересечения по областя (самые
+нижние в артерии ниже верхних в легких), так что могло оказаться, что
+данная нам выборка состоит из такого рода данных и потому разницы
+большой мы не видим
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{Image}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}80}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    Наибольшие уровни в мочевом пузыре и пищеводе, хотя в мочевом пузыре
+большая дисперсия (мало данных)
+
+    Экспрессируемый белок влияет на регуляцию трансляции, фосфорилирование и
+отвечает на эндоплазматический стресс ретикулума
+http://www.ensembl.org/Homo\_sapiens/Gene/Ontologies/biological\_process?g=ENSG00000135842;r=1:184790724-184974550
+
+    \textbf{3.0.} Посчитайте таблицу встречаемости нуклеотидов первых 10
+последовательностей, представленных в \texttt{records}, и получив тем
+самым матрицу четырех числовых последовательностей. Для решения задачи у
+каждой последовательности можно вызвать
+\texttt{seq.lower.count(\textquotesingle{}символ\textquotesingle{})}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}
+          \PY{n}{freq} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{int}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{d} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{c+c1}{\PYZsh{}ATGC}
+          \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{records}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{N}\PY{p}{]}\PY{p}{:}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{freq}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{s}\PY{o}{.}\PY{n}{seq}\PY{p}{)}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+              \PY{n}{k} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+          \PY{k}{print}\PY{p}{(}\PY{n}{freq}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 431  436  708  715]
+ [ 532  399  501  478]
+ [ 380  318  452  470]
+ [ 303  282  657  558]
+ [ 290  302  554  574]
+ [1412 1510 2746 2632]
+ [1124  929 1330 1317]
+ [ 338  412  728  882]
+ [ 200  332  274  264]
+ [ 807  874  896  933]]
+
+    \end{Verbatim}
+
+    Эта функция вам понадобится ниже
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{k}{def} \PY{n+nf}{stat}\PY{p}{(}\PY{n}{obsvd}\PY{p}{,} \PY{n}{exptd}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{p}{(}\PY{p}{(}\PY{n}{obsvd} \PY{o}{\PYZhy{}} \PY{n}{exptd}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{n}{exptd}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{3.1.} Посчитайте оценку максимального правдоподобия каждого
+нуклеотида. Помочь в этом может задача 2 из теоретической части задания.
+Вы должны получить 4 числа.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{est} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+              \PY{n}{est}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{freq}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{freq}\PY{p}{)}\PY{p}{)}
+          \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ATGC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+          \PY{k}{print}\PY{p}{(}\PY{n}{est}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ATGC
+[0.19866803 0.19788251 0.30211749 0.30133197]
+
+    \end{Verbatim}
+
+    \textbf{3.2.} Посчитайте ожидаемое количество (математическое ожидание)
+каждого нуклеотида при данных вероятностях.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{n}{avg} \PY{o}{=} \PY{n}{est}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{freq}\PY{p}{)}
+          \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{For all sequences }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZob{}a\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{n}{avg}\PY{p}{)}\PY{p}{)}
+          \PY{n}{avg\PYZus{}all} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{avg\PYZus{}all}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{est}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{freq}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+          \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Every sequence}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZob{}a\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{n}{avg\PYZus{}all}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For all sequences 
+[5817. 5794. 8846. 8823.]
+Every sequence
+[[ 454.94979508  453.15095628  691.84904372  690.05020492]
+ [ 379.45594262  377.95560109  577.04439891  575.54405738]
+ [ 321.84221311  320.56967213  489.43032787  488.15778689]
+ [ 357.60245902  356.18852459  543.81147541  542.39754098]
+ [ 341.70901639  340.3579235   519.6420765   518.29098361]
+ [1648.94467213 1642.42486339 2507.57513661 2501.05532787]
+ [ 933.7397541   930.04781421 1419.95218579 1416.2602459 ]
+ [ 468.85655738  467.00273224  712.99726776  711.14344262]
+ [ 212.57479508  211.73428962  323.26571038  322.42520492]
+ [ 697.32479508  694.56762295 1060.43237705 1057.67520492]]
+
+    \end{Verbatim}
+
+    \textbf{3.3.} Сгенерируйте случайную матрицу 4x10, используя полученный
+ранее вектор вероятностей оценки максимального правдоподобия. Для
+генерации воспользуйтесь функцией \texttt{scipy.stats.multinomial.rvs}.
+Вы должны получить матрицу 4x10, причем итоговое число нуклеотидов для
+каждой сгенерированной последовательности должны быть равно их
+изначальной длине.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{k+kn}{from} \PY{n+nn}{scipy.stats} \PY{k+kn}{import} \PY{n}{multinomial}
+          
+          \PY{n}{total} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{sluch} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+              \PY{n}{total}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{freq}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+              \PY{n}{sluch}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{multinomial}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{total}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{est}\PY{p}{)}
+          \PY{k}{print}\PY{p}{(}\PY{n}{sluch}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 461.  458.  669.  702.]
+ [ 376.  402.  584.  548.]
+ [ 315.  305.  497.  503.]
+ [ 374.  395.  505.  526.]
+ [ 346.  341.  537.  496.]
+ [1669. 1616. 2544. 2471.]
+ [ 953.  928. 1414. 1405.]
+ [ 454.  471.  707.  728.]
+ [ 187.  214.  342.  327.]
+ [ 745.  670. 1059. 1036.]]
+
+    \end{Verbatim}
+
+    \textbf{3.4.} Сгенерируйте такую матрицу 5000 раз. Для каждой итерации
+посчитайте статистику между ожидаемым и сгенерированным с помощью
+функции \texttt{stat()}. Постройте гистограмму и отметьте значение этой
+статистики для исходных последовательностей. Что можно сказать? Можете
+ли вы указать связь с проверкой статистических гипотез?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{n}{st} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{total}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{freq}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{sluch}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{multinomial}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{total}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{est}\PY{p}{)}
+              \PY{n}{st}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{stat}\PY{p}{(}\PY{n}{sluch}\PY{p}{,}\PY{n}{avg\PYZus{}all}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{n}{inp} \PY{o}{=} \PY{n}{stat}\PY{p}{(}\PY{n}{sluch}\PY{p}{,}\PY{n}{freq}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{st}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{inp}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Видим, что исходные данные лежат значительно дальше (во многих
+стандартных отклонениях от него) от распределения случайных данных,
+построенных при гипотезе, что распределение нуклеотидов имеет одинаковые
+вероятности для всех последовательностей.
+
+Таким образом, вероятнее всего эту гипотезу нужно отклонить
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
